@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>The Trilogy Care AI Journey — LifeTec Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..600&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#14201c;
+    --ink-soft:#3a4a44;
+    --cream:#f4eee1;
+    --cream-deep:#ece3d2;
+    --dark:#0a1714;
+    --dark-2:#0c1b26;
+    --honey:#e6a94e;
+    --honey-deep:#cf8f33;
+    --sage:#5da78b;
+    --coral:#e0674a;
+    --line-dark:rgba(244,238,225,.16);
+    --line-light:rgba(20,32,28,.14);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"Hanken Grotesk",-apple-system,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:#05100d;font-family:var(--sans)}
+  body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+  /* ---------- Stage ---------- */
+  .stage{position:fixed;inset:0}
+  .slide{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:7vh 8.5vw;
+    opacity:0;visibility:hidden;
+    transition:opacity .7s ease, visibility .7s;
+    overflow:hidden;
+  }
+  .slide.active{opacity:1;visibility:visible}
+  .slide.dark{background:radial-gradient(120% 120% at 12% 0%,#10241d 0%,var(--dark) 45%,#06110d 100%);color:var(--cream)}
+  .slide.dark::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 90% at 88% 110%,rgba(230,169,78,.13),transparent 60%);pointer-events:none}
+  .slide.cream{background:linear-gradient(165deg,#f7f2e7 0%,var(--cream) 55%,var(--cream-deep) 100%);color:var(--ink)}
+  /* grain */
+  .slide::before{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Reveal animation ---------- */
+  .slide .r{opacity:0;transform:translateY(26px);filter:blur(6px)}
+  .slide.active .r{animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i,0)*110ms + 180ms)}
+  @keyframes rise{to{opacity:1;transform:none;filter:none}}
+
+  /* ---------- Typographic atoms ---------- */
+  .kicker{
+    font-family:var(--sans);font-weight:600;font-size:clamp(.7rem,1.05vw,1rem);
+    letter-spacing:.32em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:.8em;
+  }
+  .kicker.on-dark{color:var(--honey)}
+  .kicker.on-cream{color:var(--honey-deep)}
+  .kicker .tick{width:clamp(28px,3.4vw,52px);height:1px;background:currentColor;opacity:.6}
+  h1{font-family:var(--serif);font-weight:340;line-height:1.0;letter-spacing:-.02em}
+  h2{font-family:var(--serif);font-weight:360;line-height:1.04;letter-spacing:-.02em;font-size:clamp(2.1rem,5.4vw,4.6rem)}
+  .lead{font-size:clamp(1.05rem,1.7vw,1.55rem);line-height:1.5;font-weight:360;max-width:30ch}
+  .dark .lead{color:rgba(244,238,225,.82)}
+  .cream .lead{color:var(--ink-soft)}
+  em{font-style:italic}
+  .hl{color:var(--honey)}
+  .cream .hl{color:var(--honey-deep)}
+  .sage{color:var(--sage)}
+
+  /* hero number */
+  .hero-num{font-family:var(--serif);font-weight:340;line-height:.86;letter-spacing:-.03em;font-size:clamp(4.5rem,17vw,16rem)}
+  .dark .hero-num{color:var(--honey)}
+  .cream .hero-num{color:var(--ink)}
+  .num-sub{font-family:var(--serif);font-weight:340;font-size:clamp(1.6rem,4vw,3.4rem);line-height:1}
+
+  /* ---------- Layout helpers ---------- */
+  .col{display:flex;flex-direction:column}
+  .split{display:grid;grid-template-columns:1.05fr .95fr;gap:6%;align-items:center;height:100%}
+  .center{align-items:flex-start;justify-content:center}
+
+  /* ---------- Cover ---------- */
+  .cover h1{font-size:clamp(2.8rem,8.2vw,8rem)}
+  .cover .sub{font-size:clamp(1.05rem,2vw,1.7rem);font-weight:360;color:rgba(244,238,225,.78);max-width:34ch;margin-top:.2em}
+  .cover .meta{margin-top:1.6rem;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,238,225,.5)}
+  .wordmark{display:flex;align-items:center;gap:1.1rem;font-weight:600;letter-spacing:.06em;font-size:clamp(.85rem,1.3vw,1.1rem)}
+  .wordmark .x{color:var(--honey);font-family:var(--serif);font-style:italic;font-weight:400}
+  .presenters{display:flex;gap:2.4rem;flex-wrap:wrap;margin-top:.4rem}
+  .presenters .p span{display:block}
+  .presenters .role{font-size:.82rem;letter-spacing:.04em;color:rgba(244,238,225,.55)}
+  .presenters .nm{font-family:var(--serif);font-size:1.25rem;font-weight:380}
+
+  /* timeline */
+  .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:2.5rem;border-top:1px solid var(--line-dark)}
+  .tl{padding:1.8rem 1.6rem 0 0;position:relative}
+  .tl:not(:last-child){border-right:1px solid var(--line-dark)}
+  .tl .dot{position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--honey)}
+  .tl .yr{font-family:var(--serif);font-style:italic;color:var(--honey);font-size:1.05rem;margin-bottom:.5rem}
+  .tl h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.15rem,2vw,1.7rem);line-height:1.12;margin-bottom:.6rem;letter-spacing:-.01em}
+  .tl p{font-size:clamp(.85rem,1.15vw,1.02rem);line-height:1.45;color:rgba(244,238,225,.66)}
+
+  /* meet yogi */
+  .portrait{position:relative;justify-self:center}
+  .portrait img{width:clamp(220px,30vw,420px);aspect-ratio:1;object-fit:cover;border-radius:50%;
+    border:1px solid rgba(20,32,28,.12);box-shadow:0 40px 90px -30px rgba(20,32,28,.45)}
+  .portrait .ring{position:absolute;inset:-18px;border-radius:50%;border:1px solid var(--honey-deep);opacity:.4}
+  .portrait .badge{position:absolute;bottom:6%;left:50%;transform:translateX(-50%);
+    background:var(--ink);color:var(--cream);font-family:var(--serif);font-style:italic;
+    padding:.4rem 1.3rem;border-radius:100px;font-size:1.05rem;white-space:nowrap;box-shadow:0 14px 30px -12px rgba(0,0,0,.5)}
+  .deflist{display:flex;flex-direction:column;gap:1.4rem;margin-top:2rem}
+  .def{display:flex;gap:1.1rem;align-items:flex-start}
+  .def .ic{flex:none;width:2.6rem;height:2.6rem;border-radius:12px;display:grid;place-items:center;
+    background:rgba(230,169,78,.16);color:var(--honey-deep);font-family:var(--serif);font-style:italic;font-size:1.2rem}
+  .def b{font-weight:600;font-size:1.05rem}
+  .def p{color:var(--ink-soft);font-size:.98rem;line-height:1.45}
+  .dark .def p{color:rgba(244,238,225,.74)}
+  .dark .def .ic{color:var(--honey)}
+  .dark .portrait img{border-color:rgba(244,238,225,.14);box-shadow:0 40px 90px -30px rgba(0,0,0,.6)}
+  .dark .portrait .badge{background:var(--cream);color:var(--ink)}
+  /* intro line above grids */
+  .introline{font-size:clamp(1rem,1.5vw,1.35rem);line-height:1.5;max-width:42ch;margin-top:1.2rem}
+  .dark .introline{color:rgba(244,238,225,.8)}
+  .cream .introline{color:var(--ink-soft)}
+
+  /* outcome number slide */
+  .outcome{align-items:flex-start;justify-content:center}
+  .ofrom{font-family:var(--serif);font-weight:340;letter-spacing:-.02em;display:flex;align-items:baseline;gap:clamp(1rem,3vw,3rem);flex-wrap:wrap}
+  .ofrom .was{font-size:clamp(1.6rem,4.6vw,3.6rem);opacity:.45;position:relative}
+  .ofrom .was::after{content:"";position:absolute;left:-4%;right:-4%;top:54%;height:3px;background:currentColor;opacity:.5;transform:scaleX(0);transform-origin:left;transition:transform .6s ease .9s}
+  .active .ofrom .was::after{transform:scaleX(1)}
+  .ofrom .arrow{font-size:clamp(1.4rem,3vw,2.4rem);opacity:.5}
+  .caption{margin-top:1.8rem;font-size:clamp(1.05rem,1.7vw,1.5rem);max-width:34ch;line-height:1.45}
+  .dark .caption{color:rgba(244,238,225,.8)}
+  .cream .caption{color:var(--ink-soft)}
+
+  /* reach / stat duo */
+  .statduo{display:flex;gap:clamp(3rem,8vw,7rem);align-items:flex-start;margin-top:1.4rem}
+  .stat .n{font-family:var(--serif);font-weight:340;font-size:clamp(3.4rem,9vw,7.5rem);line-height:.9;color:var(--honey)}
+  .cream .stat .n{color:var(--ink)}
+  .stat .l{font-size:clamp(.9rem,1.3vw,1.1rem);letter-spacing:.02em;margin-top:.6rem;max-width:17ch}
+  .dark .stat .l{color:rgba(244,238,225,.72)}
+  .cream .stat .l{color:var(--ink-soft)}
+
+  /* case study */
+  .case-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:6%;align-items:center;height:100%}
+  .casefacts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);border-radius:16px;overflow:hidden}
+  .cf{background:linear-gradient(160deg,#0e231c,#091712);padding:1.5rem 1.5rem}
+  .cf .n{font-family:var(--serif);font-size:clamp(1.8rem,3.6vw,3rem);color:var(--honey);line-height:1}
+  .cf .l{font-size:.82rem;letter-spacing:.03em;color:rgba(244,238,225,.62);margin-top:.45rem;line-height:1.35}
+  .casebody h2{margin-bottom:1.4rem}
+  .casebody .note{display:inline-flex;align-items:center;gap:.7rem;margin-top:1.6rem;font-style:italic;font-family:var(--serif);color:var(--sage);font-size:clamp(1.05rem,1.7vw,1.45rem)}
+
+  /* accuracy */
+  .meter{margin-top:2.4rem;max-width:640px}
+  .meter .track{height:14px;border-radius:100px;background:rgba(20,32,28,.1);position:relative;overflow:hidden}
+  .meter .fill{position:absolute;inset:0;width:0;background:linear-gradient(90deg,var(--sage),var(--honey-deep));border-radius:100px;transition:width 1.2s cubic-bezier(.2,.7,.2,1) .5s}
+  .active .meter .fill{width:96%}
+  .meter .target{position:absolute;top:-6px;bottom:-6px;left:98%;width:2px;background:var(--coral)}
+  .meter .lbls{display:flex;justify-content:space-between;margin-top:.8rem;font-size:.85rem;color:var(--ink-soft);letter-spacing:.03em}
+  .principles{display:flex;gap:2.6rem;flex-wrap:wrap;margin-top:2.6rem}
+  .principles div{max-width:20ch}
+  .principles b{font-family:var(--serif);font-weight:400;font-size:clamp(1.2rem,1.9vw,1.55rem);display:block;margin-bottom:.45rem}
+  .cream .principles b{color:var(--ink)}
+  .principles p{font-size:clamp(.92rem,1.15vw,1.02rem);color:var(--ink-soft);line-height:1.45}
+
+  /* how-to lists */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2rem;margin-top:2.6rem}
+  .step{position:relative;padding-top:1.6rem;border-top:2px solid var(--honey-deep)}
+  .step .s{font-family:var(--serif);font-style:italic;color:var(--honey-deep);font-size:1.05rem;margin-bottom:.6rem}
+  .step h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.2rem,2vw,1.7rem);margin-bottom:.6rem;letter-spacing:-.01em}
+  .step p{font-size:clamp(.88rem,1.15vw,1.02rem);line-height:1.45;color:var(--ink-soft)}
+
+  /* lifetec fit cards */
+  .lt-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;margin-top:2rem}
+  .lt{border:1px solid var(--line-dark);border-radius:16px;padding:1.4rem 1.6rem;background:linear-gradient(160deg,rgba(244,238,225,.045),rgba(244,238,225,.01));position:relative;overflow:hidden}
+  .lt::before{content:"";position:absolute;left:0;top:1.5rem;bottom:1.5rem;width:2px;background:var(--honey);opacity:.7}
+  .lt .svc{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.68rem;color:var(--sage);margin-bottom:.6rem}
+  .lt h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.1rem,1.85vw,1.55rem);line-height:1.1;margin-bottom:.5rem;color:var(--cream);letter-spacing:-.01em}
+  .lt p{font-size:clamp(.84rem,1.08vw,1rem);line-height:1.42;color:rgba(244,238,225,.7)}
+  .lt .gain{display:block;margin-top:.65rem;color:var(--honey);font-style:italic;font-family:var(--serif);font-size:clamp(.95rem,1.2vw,1.1rem)}
+
+  /* big statement */
+  .statement h2{font-size:clamp(2.4rem,6vw,5.6rem);max-width:19ch}
+  .statement .lead{margin-top:1.8rem;max-width:44ch}
+
+  /* close */
+  .close-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:6%;align-items:center;height:100%}
+  .close h2{font-size:clamp(2.6rem,6.8vw,6.4rem)}
+  .close .sig{display:flex;align-items:center;gap:1.2rem;margin-top:2.6rem}
+  .close .sig img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:1px solid var(--line-dark)}
+  .close .sig span{font-size:.95rem;color:rgba(244,238,225,.7);line-height:1.4}
+  .close .sig b{font-family:var(--serif);font-weight:400;color:var(--cream);font-size:1.15rem}
+  .close .door{margin-top:1.4rem;font-family:var(--serif);font-style:italic;color:var(--honey);font-size:clamp(1.05rem,1.5vw,1.35rem);max-width:24ch}
+
+  /* business proof */
+  .bigmoney{font-family:var(--serif);font-weight:340;font-size:clamp(4rem,15vw,14rem);line-height:.85;color:var(--honey);letter-spacing:-.03em}
+  .moneyrow{display:flex;gap:clamp(2rem,5vw,4.5rem);margin-top:2.2rem;flex-wrap:wrap}
+  .moneyrow .m .n{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.8rem);color:var(--cream)}
+  .moneyrow .m .l{font-size:.85rem;letter-spacing:.04em;color:rgba(244,238,225,.6);margin-top:.4rem}
+
+  /* ---------- Chrome ---------- */
+  .chrome{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1.5vh 8.5vw;pointer-events:none;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+  .chrome .c-left,.chrome .c-right{transition:color .6s}
+  .progress{position:fixed;left:0;top:0;height:3px;background:var(--honey);z-index:60;transition:width .5s cubic-bezier(.2,.7,.2,1)}
+  .counter b{font-family:var(--serif);font-weight:500}
+  .hint{position:fixed;bottom:6vh;left:50%;transform:translateX(-50%);z-index:50;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,238,225,.5);display:flex;align-items:center;gap:.7rem;animation:pulse 2.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.35}50%{opacity:.8}}
+  .navzone{position:fixed;top:0;bottom:0;width:22vw;z-index:40;cursor:pointer}
+  .navzone.left{left:0}.navzone.right{right:0}
+
+  @media (max-width:760px){
+    .split,.case-grid,.close-grid{grid-template-columns:1fr;gap:2rem}
+    .timeline,.steps,.lt-grid{grid-template-columns:1fr}
+    .portrait{display:none}
+    .slide{padding:9vh 8vw}
+  }
+
+  /* ============================================================
+     CINEMATIC 3D LAYER  (overrides — depth, camera, light)
+     ============================================================ */
+  body{perspective:1700px;perspective-origin:50% 42%}
+  .stage{transform-style:preserve-3d;transform:rotateY(var(--px,0deg)) rotateX(var(--py,0deg));transition:transform .4s ease-out;will-change:transform}
+  .slide{transform-style:preserve-3d;will-change:transform,opacity}
+
+  /* per-slide camera dolly: incoming flies forward from depth, outgoing falls back */
+  .slide{opacity:0;visibility:hidden;
+    transform:translateZ(-340px) translateY(2vh) scale(.95) rotateX(6deg);
+    transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1.05s cubic-bezier(.16,1,.3,1), visibility 1s}
+  .slide.active{opacity:1;visibility:visible;transform:none}
+
+  /* 3D staggered content reveals */
+  .slide .r{opacity:0;transform:translateY(38px) translateZ(-90px) rotateX(8deg);filter:blur(10px)}
+  .slide.active .r{animation:rise3d 1.05s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(var(--i,0)*100ms + 230ms)}
+  @keyframes rise3d{to{opacity:1;transform:none;filter:none}}
+
+  /* volumetric drifting light + slow ken-burns */
+  .slide.dark::after{
+    background:
+      radial-gradient(48% 58% at 80% 6%, rgba(93,167,139,.20), transparent 60%),
+      radial-gradient(72% 92% at 90% 118%, rgba(230,169,78,.24), transparent 62%),
+      radial-gradient(60% 80% at 8% 18%, rgba(36,92,80,.26), transparent 66%);
+    animation:drift 19s ease-in-out infinite alternate;will-change:transform}
+  .slide.cream::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(58% 70% at 86% -4%, rgba(230,169,78,.12), transparent 60%),
+      radial-gradient(54% 64% at -4% 104%, rgba(93,167,139,.12), transparent 62%);
+    animation:drift 22s ease-in-out infinite alternate}
+  @keyframes drift{0%{transform:translate3d(-2%,-1%,0) scale(1.06)}100%{transform:translate3d(3%,2%,0) scale(1.16)}}
+  .slide > *{position:relative;z-index:2}
+  .slide::before{z-index:3}
+
+  /* cinematic frame: vignette + letterbox bars */
+  .cine{position:fixed;inset:0;pointer-events:none;z-index:46}
+  .cine .vig{position:absolute;inset:0;box-shadow:inset 0 0 19vw rgba(0,0,0,.42), inset 0 0 5vw rgba(0,0,0,.2)}
+  .cine .bar{position:absolute;left:0;right:0;height:4.5vh;opacity:.55}
+  .cine .bar.top{top:0;background:linear-gradient(#000,transparent)}
+  .cine .bar.bot{bottom:0;background:linear-gradient(transparent,#000)}
+
+  /* extruded, glowing hero numbers + gentle float */
+  .hero-num,.bigmoney{text-shadow:0 0 60px rgba(230,169,78,.45), 0 16px 34px rgba(0,0,0,.4), 0 2px 0 rgba(0,0,0,.15)}
+  .cream .hero-num{text-shadow:0 0 50px rgba(207,143,51,.22), 0 16px 30px rgba(20,32,28,.2)}
+  .stat .n,.cf .n,.moneyrow .m .n{text-shadow:0 0 40px rgba(230,169,78,.3), 0 10px 20px rgba(0,0,0,.32)}
+  .cream .stat .n{text-shadow:0 10px 20px rgba(20,32,28,.16)}
+  .ofrom .hl{text-shadow:0 0 50px rgba(207,143,51,.3)}
+
+  /* 3D depth on cards — staggered Z so grids parallax under the camera tilt */
+  .lt-grid,.steps,.casefacts,.principles,.deflist,.statduo,.moneyrow,.split,.case-grid,.close-grid{transform-style:preserve-3d}
+  .lt,.cf,.step{transition:transform .55s cubic-bezier(.16,1,.3,1), box-shadow .55s}
+  .lt{box-shadow:0 34px 64px -30px rgba(0,0,0,.62), 0 6px 16px rgba(0,0,0,.3)}
+  .casefacts{box-shadow:0 60px 110px -40px rgba(0,0,0,.72)}
+  .lt:nth-child(1){transform:translateZ(34px)} .lt:nth-child(2){transform:translateZ(16px)}
+  .lt:nth-child(3){transform:translateZ(24px)} .lt:nth-child(4){transform:translateZ(8px)}
+  .lt:hover{transform:translateZ(54px)}
+  .cf:nth-child(1){transform:translateZ(28px)} .cf:nth-child(2){transform:translateZ(12px)}
+  .cf:nth-child(3){transform:translateZ(20px)} .cf:nth-child(4){transform:translateZ(6px)}
+  .step:nth-child(1){transform:translateZ(26px)} .step:nth-child(2){transform:translateZ(12px)} .step:nth-child(3){transform:translateZ(22px)}
+  .portrait{transform:translateZ(55px)}
+  .portrait img{box-shadow:0 70px 130px -30px rgba(0,0,0,.72), 0 0 90px rgba(230,169,78,.16)}
+  .cover h1{text-shadow:0 30px 70px rgba(0,0,0,.55)}
+  .close h2,.statement h2{text-shadow:0 24px 60px rgba(0,0,0,.5)}
+
+  @media (prefers-reduced-motion:reduce){
+    .slide{transition:opacity .4s;transform:none}
+    .slide.dark::after,.slide.cream::after{animation:none}
+    .stage{transform:none}
+  }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+<style>
+  /* ===== v3 · WebGL universe integration ===== */
+  body{background:#070608}
+  #universe{position:fixed;inset:0;z-index:0;display:block;pointer-events:none}
+  .stage{z-index:1}
+  /* galaxy glows through dark slides; text stays crisp */
+  .slide.dark{background:radial-gradient(125% 125% at 12% 0%, rgba(18,38,31,.50) 0%, rgba(9,21,18,.62) 46%, rgba(5,14,11,.78) 100%)!important}
+  .slide.dark::after{opacity:.45}
+  /* cream slides keep a near-opaque scrim so dark text wins over the void */
+  .slide.cream{background:linear-gradient(165deg, rgba(247,242,231,.95) 0%, rgba(244,238,225,.965) 55%, rgba(236,227,210,.975) 100%)!important}
+  /* WebGL camera owns depth — retire CSS stage tilt + per-slide Z dolly */
+  .stage{transform:none!important}
+  .slide{transform:translateY(14px)!important; transition:opacity .8s ease, transform .9s cubic-bezier(.16,1,.3,1), visibility .8s!important}
+  .slide.active{transform:none!important}
+  @media (prefers-reduced-motion:reduce){ #universe{opacity:.55} }
+</style>
+</head>
+<body>
+<canvas id="universe"></canvas>
+<div class="progress" id="progress"></div>
+<div class="stage" id="stage">
+
+  <!-- 1 · COVER -->
+  <section class="slide dark active center cover">
+    <div class="wordmark r" style="--i:0;margin-bottom:auto">Trilogy Care <span class="x">×</span> LifeTec</div>
+    <span class="kicker on-dark r" style="--i:1"><span class="tick"></span>Strategic Planning · Board Briefing</span>
+    <h1 class="r" style="--i:2;margin-top:1.4rem">The Trilogy Care<br>AI Journey</h1>
+    <p class="sub r" style="--i:3">From experiment to everyday — how artificial intelligence gave our people their time back.</p>
+    <div class="presenters r" style="--i:4;margin-top:2.4rem">
+      <div class="p"><span class="role">Presented by</span><span class="nm">Ash Williams</span></div>
+      <div class="p"><span class="role">with</span><span class="nm">Isaac Baker</span></div>
+      <div class="p"><span class="role">Host</span><span class="nm">David Melloy</span></div>
+    </div>
+    <div class="meta r" style="--i:5">Tuesday 10 June 2026 · LifeTec, Milton</div>
+  </section>
+
+  <!-- ====================  PART 1 · CONTEXT  ==================== -->
+
+  <!-- 2 · THE SHARED PROBLEM -->
+  <section class="slide cream">
+    <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>Where it starts · the shared problem</span>
+    <h2 class="r" style="--i:1;margin-top:1.1rem;max-width:18ch">We were where you are now.</h2>
+    <div class="split" style="margin-top:2.2rem;height:auto">
+      <p class="lead r" style="--i:2">Skilled people buried in paperwork — reports, claims, case notes, chasing information across a dozen systems. Clinical teams stretched thin, their time going to admin instead of clients. <em>Sound familiar?</em></p>
+      <div class="r" style="--i:3">
+        <div class="ofrom">
+          <span class="was">20%</span><span class="arrow">→</span><span class="hl" style="font-size:clamp(2.4rem,7vw,5.5rem)">60%</span>
+        </div>
+        <p class="caption">Your board's challenge — lift productivity from ~20% toward 60%. We faced the same gap. Here's how we started closing it, without working anyone harder.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================  PART 2 · WHAT WE DID  ==================== -->
+
+  <!-- 3 · MEET YOGI -->
+  <section class="slide dark">
+    <div class="split">
+      <div class="col">
+        <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>What we did · a teammate, not a robot</span>
+        <h2 class="r" style="--i:1;margin-top:1.1rem">An AI teammate.<br>Our people call it <em class="hl">Yogi.</em></h2>
+        <div class="deflist">
+          <div class="def r" style="--i:2"><div class="ic">①</div><div><b>It does the digging.</b><p>Reads records, calls, invoices and emails — and finds what matters in seconds.</p></div></div>
+          <div class="def r" style="--i:3"><div class="ic">②</div><div><b>It does the drafting.</b><p>Writes the report, the response, the summary — ready for a person to check and approve.</p></div></div>
+          <div class="def r" style="--i:4"><div class="ic">③</div><div><b>People stay in charge.</b><p>It proposes; our staff decide. Nothing goes out without a human saying yes.</p></div></div>
+        </div>
+      </div>
+      <div class="portrait r" style="--i:2">
+        <div class="ring"></div>
+        <img src="assets/yogi.png" alt="Yogi, the AI teammate" />
+        <span class="badge">“Smarter than the average bear.”</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · THREE LEVERS (teammates · workspaces · automation) -->
+  <section class="slide cream">
+    <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>What we did · three levers, not one trick</span>
+    <h2 class="r" style="--i:1;margin-top:1.1rem;max-width:22ch">We lifted performance three ways.</h2>
+    <div class="steps">
+      <div class="step r" style="--i:2"><div class="s">One</div><h3>AI teammates</h3><p>An AI teammate (we call it Yogi) that reads the records, does the digging and drafts the work — a person always checks and signs.</p></div>
+      <div class="step r" style="--i:3"><div class="s">Two</div><h3>A workspace for everyone</h3><p>Each team member got their own AI workspace, trained on our systems — so the whole organisation moves faster, not just one team.</p></div>
+      <div class="step r" style="--i:4"><div class="s">Three</div><h3>Automation</h3><p>The repetitive jobs — claims, reconciliations, reports — now run themselves around the clock. No one chasing them.</p></div>
+    </div>
+  </section>
+
+  <!-- 5 · CASE STUDY -->
+  <section class="slide dark">
+    <div class="case-grid">
+      <div class="casebody col">
+        <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>What we did · one job, up close</span>
+        <h2 class="r" style="--i:1;margin-top:1rem">The better part of a day — done before morning tea.</h2>
+        <p class="lead r" style="--i:2;max-width:34ch">A complaint needed a full review across phone calls, invoices, emails and client records. By hand, that's a quality officer's whole day. Yogi gathered and cross-referenced it in minutes — and drafted the regulator-ready response.</p>
+        <span class="note r" style="--i:3">↳ Not just faster. More thorough — it caught a conflict of interest a person could miss.</span>
+      </div>
+      <div class="casefacts r" style="--i:2">
+        <div class="cf"><div class="n" data-count="4">4</div><div class="l">clients reviewed together</div></div>
+        <div class="cf"><div class="n" data-count="81">81</div><div class="l">invoices examined</div></div>
+        <div class="cf"><div class="n" data-prefix="$" data-count="69" data-suffix="k">$69k</div><div class="l">in billing scrutinised</div></div>
+        <div class="cf"><div class="n" data-count="42">42</div><div class="l">phone calls cross-checked</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================  PART 3 · WHY / APPROACH  ==================== -->
+
+  <!-- 6 · OUR APPROACH -->
+  <section class="slide cream">
+    <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>Why it worked · our approach</span>
+    <h2 class="r" style="--i:1;margin-top:1.1rem;max-width:20ch">Problem first. People first. Small steps.</h2>
+    <div class="principles">
+      <div class="r" style="--i:2"><b>We started with the pain.</b><p>Not “where can we put AI?” — “what's wasting our people's time?” Then we fixed that.</p></div>
+      <div class="r" style="--i:3"><b>We augmented, not replaced.</b><p>AI does the grunt work and drafts. People judge, decide and sign. Always.</p></div>
+      <div class="r" style="--i:4"><b>We proved it, then grew.</b><p>One job at a time, measured before the next. No big-bang, no big risk.</p></div>
+    </div>
+  </section>
+
+  <!-- ====================  PART 4 · THE IMPACT  ==================== -->
+
+  <!-- 7 · IMPACT: DOLLARS (lead — big ROI first & centre, per Isaac) -->
+  <section class="slide dark center">
+    <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>The impact · the bottom line</span>
+    <div class="bigmoney r" style="--i:1;margin-top:1rem"><span data-prefix="$" data-count="2.8" data-dec="1" data-suffix="M">$2.8M</span></div>
+    <p class="caption r" style="--i:2;max-width:30ch">in care funding claimed correctly <strong>every day</strong> — faster and more accurately than manual processing, with AI doing the classification.</p>
+    <div class="moneyrow r" style="--i:3">
+      <div class="m"><div class="n" data-prefix="$" data-count="4.5" data-dec="1" data-suffix="M">$4.5M</div><div class="l">best single day so far</div></div>
+      <div class="m"><div class="n" data-count="95" data-suffix="–97%">95–97%</div><div class="l">classification accuracy</div></div>
+      <div class="m"><div class="n" data-count="40" data-suffix="%">40%</div><div class="l">of the work already on AI</div></div>
+    </div>
+  </section>
+
+  <!-- 8 · IMPACT: TIME -->
+  <section class="slide cream outcome">
+    <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>The impact · time given back</span>
+    <div class="ofrom r" style="--i:1;margin-top:1.5rem">
+      <span class="was num-sub">20 min</span><span class="arrow">→</span>
+      <span class="hero-num" data-count="5" data-suffix=" min">5 min</span>
+    </div>
+    <p class="caption r" style="--i:2">Work that took a person twenty minutes of careful cross-checking is done in five — because dozens of AI assistants work on it at the same time. <em class="hl">A team that never sleeps.</em></p>
+  </section>
+
+  <!-- 9 · IMPACT: SPEED + ERRORS -->
+  <section class="slide dark outcome">
+    <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>The impact · faster, and fewer mistakes</span>
+    <div class="ofrom r" style="--i:1;margin-top:1.5rem">
+      <span class="was num-sub">40 sec</span><span class="arrow">→</span>
+      <span class="hero-num" data-count="1.7" data-suffix=" sec" data-dec="1">1.7 sec</span>
+    </div>
+    <p class="caption r" style="--i:2">A screen our team opens dozens of times a day went from a 40-second wait to under two — <strong>more than 20× faster.</strong> And because the AI doesn't tire or skip a step, fewer errors and less rework.</p>
+  </section>
+
+  <!-- ====================  PART 5 · WHAT'S POSSIBLE FOR LIFETEC  ==================== -->
+
+  <!-- 11 · IMAGINE -->
+  <section class="slide cream statement">
+    <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>What's possible for LifeTec</span>
+    <h2 class="r" style="--i:1;margin-top:1.1rem">Imagine your clinicians spending their time on <em class="hl">people</em> — not paperwork.</h2>
+    <p class="lead r" style="--i:2">The assessment still needs your OT. The communication still needs your speech pathologist. But the writing-up, the funding forms, the chasing — handled. That's how ~20% becomes 60%: not more hours, less admin.</p>
+  </section>
+
+  <!-- 12 · FOUR PLACES TO START -->
+  <section class="slide dark">
+    <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>What's possible · four places to start</span>
+    <h2 class="r" style="--i:1;margin-top:.9rem;max-width:26ch">Built around what your OTs and speech pathologists already do.</h2>
+    <div class="lt-grid">
+      <div class="lt r" style="--i:2">
+        <div class="svc">AT assessments · Functional capacity</div>
+        <h3>Reports &amp; NDIS requests, written for you</h3>
+        <p>The clinician does the assessment; the AI turns the notes into the formal AT report and funding request — clinical justification built in, ready to review and sign.</p>
+        <span class="gain">↳ Hours of writing back, on every client.</span>
+      </div>
+      <div class="lt r" style="--i:3">
+        <div class="svc">NDIS · My Aged Care · CHSP · Support at Home</div>
+        <h3>The right funding pathway, every time</h3>
+        <p>It matches each client to the correct scheme and pre-fills the application against that program's rules — so requests land first time.</p>
+        <span class="gain">↳ Fewer knock-backs, faster approvals.</span>
+      </div>
+      <div class="lt r" style="--i:4">
+        <div class="svc">Intake · Triage · Scheduling</div>
+        <h3>Clients arrive ready</h3>
+        <p>First contact is captured, triaged and booked, and the clinician gets a clean pre-visit summary before they walk in the door.</p>
+        <span class="gain">↳ Visit time on the person, not the form.</span>
+      </div>
+      <div class="lt r" style="--i:5">
+        <div class="svc">Home modifications · AAC trials</div>
+        <h3>Scopes, quotes &amp; trial plans in minutes</h3>
+        <p>From site notes to a costed, compliant minor-home-mod scope — or an equipment trial plan matched to the client's needs and the catalogue.</p>
+        <span class="gain">↳ Less back-office, more jobs done.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · HOW YOU'D START -->
+  <section class="slide cream">
+    <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>How you'd start · and why you're well placed</span>
+    <h2 class="r" style="--i:1;margin-top:1.1rem;max-width:20ch">At around twenty people, you can move fast.</h2>
+    <p class="introline r" style="--i:2">A small team is the advantage — less to change, quicker to see the win. You don't need a strategy. You need one job.</p>
+    <div class="steps">
+      <div class="step r" style="--i:3"><div class="s">Step one</div><h3>Pick one painful job</h3><p>The repetitive, time-eating task your team dreads. One is enough to prove the value.</p></div>
+      <div class="step r" style="--i:4"><div class="s">Step two</div><h3>Give the AI the tools</h3><p>Connect it to the systems that hold the answers, and keep a person in the loop.</p></div>
+      <div class="step r" style="--i:5"><div class="s">Step three</div><h3>Measure, then grow</h3><p>Count the hours saved. When it works — and it will — move to the next job.</p></div>
+    </div>
+  </section>
+
+  <!-- 14 · CLOSE -->
+  <section class="slide dark close">
+    <div class="close-grid">
+      <div class="col">
+        <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>Same mission</span>
+        <h2 class="r" style="--i:1;margin-top:1rem">More time<br>for the work<br>that matters.</h2>
+        <div class="sig r" style="--i:2">
+          <img src="assets/yogi.png" alt="Yogi" />
+          <span><b>Thank you.</b><br>Ash Williams &amp; Isaac Baker · Trilogy Care<br>Questions welcome.</span>
+        </div>
+      </div>
+      <div class="col r" style="--i:2;justify-content:center">
+        <div class="wordmark" style="font-size:1.1rem">Trilogy Care <span class="x">×</span> LifeTec</div>
+        <p class="lead" style="margin-top:1rem;max-width:26ch">Two health organisations. One future — where technology gives people back their time.</p>
+        <p class="door">When LifeTec's ready to explore it, we're right here.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- chrome -->
+<div class="chrome">
+  <span class="c-left" id="cLeft">Trilogy Care × LifeTec</span>
+  <span class="c-right counter" id="counter"><b>01</b> / 13</span>
+</div>
+<div class="hint" id="hint">Press → to begin</div>
+<div class="navzone left" id="navLeft"></div>
+<div class="navzone right" id="navRight"></div>
+<div class="cine"><div class="bar top"></div><div class="bar bot"></div><div class="vig"></div></div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const progress=document.getElementById('progress');
+  const counter=document.getElementById('counter');
+  const cLeft=document.getElementById('cLeft');
+  const hint=document.getElementById('hint');
+  let i=0;
+  const pad=n=>String(n+1).padStart(2,'0');
+
+  const STILL=/[?&]still/.test(location.search);
+  function countUp(slide){
+    slide.querySelectorAll('[data-count]').forEach(el=>{
+      if(el.dataset.done) return;
+      if(STILL){const t=parseFloat(el.dataset.count);el.textContent=(el.dataset.prefix||'')+t.toFixed(parseInt(el.dataset.dec||'0',10))+(el.dataset.suffix||'');el.dataset.done='1';return;}
+      const target=parseFloat(el.dataset.count);
+      const dec=parseInt(el.dataset.dec||'0',10);
+      const pre=el.dataset.prefix||'';
+      const suf=el.dataset.suffix||'';
+      const dur=1100; const t0=performance.now();
+      function step(t){
+        const p=Math.min(1,(t-t0)/dur);
+        const e=1-Math.pow(1-p,3);
+        const v=(target*e).toFixed(dec);
+        el.textContent=pre+v+suf;
+        if(p<1) requestAnimationFrame(step); else {el.textContent=pre+target.toFixed(dec)+suf; el.dataset.done='1';}
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  function go(n){
+    n=Math.max(0,Math.min(slides.length-1,n));
+    slides[i].classList.remove('active');
+    i=n;
+    const s=slides[i];
+    s.classList.add('active');
+    progress.style.width=((i)/(slides.length-1)*100)+'%';
+    counter.innerHTML='<b>'+pad(i)+'</b> / '+slides.length;
+    const dark=s.classList.contains('dark');
+    counter.style.color = dark? 'rgba(244,238,225,.6)':'rgba(20,32,28,.55)';
+    cLeft.style.color = dark? 'rgba(244,238,225,.5)':'rgba(20,32,28,.45)';
+    progress.style.background = dark? 'var(--honey)':'var(--honey-deep)';
+    if(i>0) hint.style.display='none';
+    if(window.universeGoTo) window.universeGoTo(i, dark);
+    setTimeout(()=>countUp(s), 500);
+  }
+
+  function next(){go(i+1)} function prev(){go(i-1)}
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown','Enter'].includes(e.key)){e.preventDefault();next()}
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)){e.preventDefault();prev()}
+    else if(e.key==='Home'){go(0)} else if(e.key==='End'){go(slides.length-1)}
+    else if(e.key==='f'||e.key==='F'){document.documentElement.requestFullscreen?.()}
+  });
+  document.getElementById('navRight').addEventListener('click',next);
+  document.getElementById('navLeft').addEventListener('click',prev);
+
+  // cinematic cursor-driven 3D parallax (flat by default; only tilts as you move)
+  const stage=document.getElementById('stage');
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!reduce){
+    let tx=0,ty=0,cx=0,cy=0,ticking=false;
+    function loop(){cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;
+      stage.style.setProperty('--px',cx.toFixed(2)+'deg');
+      stage.style.setProperty('--py',cy.toFixed(2)+'deg');
+      if(Math.abs(tx-cx)>.01||Math.abs(ty-cy)>.01){requestAnimationFrame(loop)}else{ticking=false}}
+    function kick(){if(!ticking){ticking=true;requestAnimationFrame(loop)}}
+    window.addEventListener('pointermove',e=>{
+      tx=(e.clientX/window.innerWidth-.5)*3.4; ty=-(e.clientY/window.innerHeight-.5)*3.4; kick();},{passive:true});
+    window.addEventListener('pointerleave',()=>{tx=0;ty=0;kick();});
+    // subtle gyro tilt on touch devices
+    window.addEventListener('deviceorientation',e=>{
+      if(e.gamma==null)return; tx=Math.max(-3.4,Math.min(3.4,e.gamma/10)); ty=Math.max(-3.4,Math.min(3.4,(e.beta-45)/10)); kick();},{passive:true});
+  }
+  // deep-link via #n (handy for presenting + previews)
+  function fromHash(){const m=parseInt((location.hash||'').replace('#',''),10);return isNaN(m)?null:m-1;}
+  const start=fromHash();
+  window.addEventListener('hashchange',()=>{const n=fromHash();if(n!==null) go(n);});
+  // init
+  go(start!==null?start:0); countUp(slides[i]);
+</script>
+
+<!-- ===== v3 · particle universe (Three.js) — wow layer behind the DOM deck ===== -->
+<script type="module">
+(async function(){
+  const STILL=/[?&](still|flat)/.test(location.search);
+  let THREE, EffectComposer, RenderPass, UnrealBloomPass, OutputPass;
+  try {
+    THREE = await import('three');
+    ({EffectComposer} = await import('three/addons/postprocessing/EffectComposer.js'));
+    ({RenderPass}     = await import('three/addons/postprocessing/RenderPass.js'));
+    ({UnrealBloomPass}= await import('three/addons/postprocessing/UnrealBloomPass.js'));
+    ({OutputPass}     = await import('three/addons/postprocessing/OutputPass.js'));
+  } catch(e){ console.warn('[v3] WebGL libs unavailable — DOM deck floor active', e); return; }
+
+  const canvas=document.getElementById('universe'); if(!canvas) return;
+  let renderer;
+  try { renderer=new THREE.WebGLRenderer({canvas,antialias:false,alpha:false,powerPreference:'high-performance'}); }
+  catch(e){ console.warn('[v3] WebGL init failed — DOM floor active',e); return; }
+
+  const DPR=Math.min(window.devicePixelRatio||1,1.5);
+  renderer.setPixelRatio(DPR); renderer.setSize(innerWidth,innerHeight);
+  renderer.setClearColor(0x070608,1);
+  renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.0;
+
+  const scene=new THREE.Scene();
+  scene.fog=new THREE.FogExp2(0x070608,0.011);
+  const camera=new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 3000);
+  camera.position.set(0,8,150);
+
+  const cores=navigator.hardwareConcurrency||4;
+  let COUNT = cores<=4 ? 45000 : 75000;
+
+  const PLUM=new THREE.Color('#5A2149'), CORAL=new THREE.Color('#FB7A3C'),
+        GREEN=new THREE.Color('#6DB33F'), LAV=new THREE.Color('#9665AA'),
+        AMBER=new THREE.Color('#E6A94E');
+  const palette=[PLUM,LAV,CORAL,AMBER,LAV,PLUM,GREEN];
+
+  const RADIUS=130, BRANCHES=4, SPIN=3.0, RND=0.55, POW=2.6;
+  const home=new Float32Array(COUNT*3), col=new Float32Array(COUNT*3),
+        scl=new Float32Array(COUNT), seed=new Float32Array(COUNT);
+  for(let i=0;i<COUNT;i++){
+    const r=Math.pow(Math.random(),0.7)*RADIUS;
+    const branch=((i%BRANCHES)/BRANCHES)*Math.PI*2;
+    const spin=r/RADIUS*SPIN;
+    const rx=Math.pow(Math.random(),POW)*(Math.random()<.5?1:-1)*RND*r*0.25;
+    const ry=Math.pow(Math.random(),POW)*(Math.random()<.5?1:-1)*RND*r*0.10;
+    const rz=Math.pow(Math.random(),POW)*(Math.random()<.5?1:-1)*RND*r*0.25;
+    home[i*3]  =Math.cos(branch+spin)*r+rx;
+    home[i*3+1]=ry+(Math.random()-0.5)*7;
+    home[i*3+2]=Math.sin(branch+spin)*r+rz;
+    const c=palette[(Math.random()*palette.length)|0].clone();
+    c.lerp(AMBER, Math.max(0,1-r/RADIUS)*0.45);
+    col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
+    scl[i]=0.5+Math.random()*1.6; seed[i]=Math.random();
+  }
+
+  // $2.8M morph target sampled from text
+  function sampleText(text,count){
+    const W=1024,H=320,cv=document.createElement('canvas'); cv.width=W;cv.height=H;
+    const x=cv.getContext('2d'); x.fillStyle='#fff';
+    x.font='800 220px Georgia, "Times New Roman", serif';
+    x.textAlign='center'; x.textBaseline='middle'; x.fillText(text,W/2,H/2);
+    const d=x.getImageData(0,0,W,H).data, pts=[];
+    for(let yy=0;yy<H;yy+=3) for(let xx=0;xx<W;xx+=3)
+      if(d[(yy*W+xx)*4+3]>128) pts.push([(xx-W/2)*0.105, -(yy-H/2)*0.105, (Math.random()-0.5)*4]);
+    const out=new Float32Array(count*3);
+    for(let i=0;i<count;i++){ const p=pts.length?pts[i%pts.length]:[0,0,0]; out[i*3]=p[0];out[i*3+1]=p[1];out[i*3+2]=p[2]; }
+    return out;
+  }
+  const target=sampleText('$2.8M',COUNT);
+
+  const geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.BufferAttribute(home,3));
+  geo.setAttribute('aTarget', new THREE.BufferAttribute(target,3));
+  geo.setAttribute('aColor',  new THREE.BufferAttribute(col,3));
+  geo.setAttribute('aScale',  new THREE.BufferAttribute(scl,1));
+  geo.setAttribute('aSeed',   new THREE.BufferAttribute(seed,1));
+
+  const uniforms={ uTime:{value:0}, uMorph:{value:0}, uSize:{value:30.0*DPR},
+    uColorMix:{value:0}, uMorphColor:{value:CORAL.clone()}, uStreak:{value:0} };
+  const mat=new THREE.ShaderMaterial({ uniforms, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
+    vertexShader:`
+      uniform float uTime,uMorph,uSize,uStreak;
+      attribute vec3 aTarget,aColor; attribute float aScale,aSeed;
+      varying vec3 vColor;
+      void main(){
+        float stag=smoothstep(0.0,1.0, clamp((uMorph-aSeed*0.35)/0.65,0.0,1.0));
+        vec3 p=mix(position,aTarget,stag);
+        float t=uTime*0.15+aSeed*6.2831;
+        float idle=1.0-stag;
+        p.x+=sin(t)*1.3*idle; p.y+=cos(t*0.9)*1.1*idle; p.z+=sin(t*1.1)*1.3*idle;
+        vec4 mv=modelViewMatrix*vec4(p,1.0);
+        gl_PointSize=uSize*aScale*(1.0/max(0.001,-mv.z))*(1.0+uStreak*2.5);
+        gl_Position=projectionMatrix*mv;
+        vColor=aColor;
+      }`,
+    fragmentShader:`
+      precision mediump float;
+      uniform float uColorMix; uniform vec3 uMorphColor; varying vec3 vColor;
+      void main(){
+        float d=length(gl_PointCoord-0.5); if(d>0.5) discard;
+        float a=smoothstep(0.5,0.0,d);
+        gl_FragColor=vec4(mix(vColor,uMorphColor,uColorMix), a*0.92);
+      }`
+  });
+  const points=new THREE.Points(geo,mat); scene.add(points);
+
+  const composer=new EffectComposer(renderer); composer.setPixelRatio(DPR);
+  composer.addPass(new RenderPass(scene,camera));
+  const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),0.9,0.7,0.62);
+  composer.addPass(bloom); composer.addPass(new OutputPass());
+
+  const V=(x,y,z,fov)=>({pos:new THREE.Vector3(x,y,z),fov:fov||60});
+  const WP=[ V(0,8,150,62), V(60,18,95,60), V(-42,10,72,58), V(28,-14,112,62),
+    V(-55,6,60,55), V(18,28,132,64), V(0,0,46,52), V(-30,-10,82,60),
+    V(52,2,72,58), V(-18,24,122,64), V(34,-18,86,60), V(0,10,132,62), V(0,12,162,64) ];
+  let camTarget=WP[0].pos.clone(), camCur=WP[0].pos.clone(), camFov=WP[0].fov;
+  let morphT=0, colorT=0, bloomT=0.9, streakT=0;
+  let px=0,py=0,tpx=0,tpy=0;
+  addEventListener('pointermove',e=>{tpx=(e.clientX/innerWidth-.5);tpy=(e.clientY/innerHeight-.5);},{passive:true});
+
+  window.universeGoTo=function(idx,dark){
+    const wp=WP[Math.max(0,Math.min(WP.length-1,idx))];
+    camTarget.copy(wp.pos); camFov=wp.fov;
+    if(idx===6){ morphT=1; colorT=1; bloomT=1.5; streakT=0; }
+    else if(idx===8){ morphT=0; colorT=0; bloomT=1.0; streakT=1; setTimeout(()=>{streakT=0;},850); }
+    else { morphT=0; colorT=0; bloomT=dark?0.95:0.4; streakT=0; }
+    if(STILL){ uniforms.uMorph.value=morphT; uniforms.uColorMix.value=colorT; bloom.strength=bloomT; camCur.copy(camTarget); }
+  };
+
+  addEventListener('resize',()=>{
+    camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth,innerHeight); composer.setSize(innerWidth,innerHeight);
+    bloom.resolution.set(innerWidth,innerHeight);
+  });
+  let visible=true; document.addEventListener('visibilitychange',()=>{visible=!document.hidden;});
+
+  const clock=new THREE.Clock();
+  function tick(){
+    requestAnimationFrame(tick);
+    if(!visible) return;
+    const dt=Math.min(clock.getDelta(),0.05);
+    uniforms.uTime.value+=dt;
+    if(!STILL){
+      uniforms.uMorph.value   += (morphT-uniforms.uMorph.value)*0.06;
+      uniforms.uColorMix.value+= (colorT-uniforms.uColorMix.value)*0.06;
+      uniforms.uStreak.value  += (streakT-uniforms.uStreak.value)*0.12;
+      bloom.strength          += (bloomT-bloom.strength)*0.05;
+      px+=(tpx-px)*0.05; py+=(tpy-py)*0.05;
+      camCur.lerp(camTarget,0.045);
+    }
+    camera.position.set(camCur.x+px*18, camCur.y-py*12, camCur.z);
+    camera.fov += (camFov-camera.fov)*0.05; camera.updateProjectionMatrix();
+    camera.lookAt(0,0,0);
+    points.rotation.y += dt*0.02*(1.0-uniforms.uMorph.value);
+    composer.render();
+  }
+  const startIdx=(()=>{const m=parseInt((location.hash||'').replace('#',''),10);return isNaN(m)?0:Math.max(0,m-1);})();
+  const startDark=(document.querySelectorAll('.slide')[startIdx]||{}).classList?.contains?.('dark') ?? true;
+  window.universeGoTo(startIdx,startDark);
+  if(STILL){ uniforms.uMorph.value=morphT; uniforms.uColorMix.value=colorT; bloom.strength=bloomT; camCur.copy(camTarget); camera.position.copy(camTarget); }
+  tick();
+  console.log('[v3] universe online —', COUNT, 'particles, start', startIdx);
+})();
+</script>
+</body>
+</html>
