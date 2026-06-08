@@ -68,6 +68,11 @@
   .lead{font-size:clamp(1.05rem,1.7vw,1.55rem);line-height:1.5;font-weight:360;max-width:30ch}
   .dark .lead{color:rgba(244,238,225,.82)}
   .cream .lead{color:var(--ink-soft)}
+  /* problem bullets (slide 2) */
+  .painlist{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1.5vh,1rem);max-width:34ch}
+  .painlist li{position:relative;padding-left:1.7rem;font-size:clamp(1rem,1.55vw,1.45rem);line-height:1.38;color:var(--ink-soft)}
+  .painlist li::before{content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 4px rgba(224,103,74,.14)}
+  .painlist b{color:var(--ink);font-weight:600}
   em{font-style:italic}
   .hl{color:var(--honey)}
   .cream .hl{color:var(--honey-deep)}
@@ -235,6 +240,35 @@
   .chip span{font-size:clamp(.82rem,1.05vw,1rem);color:var(--cream);line-height:1.15}
   .connect-note{margin-top:1.6rem;font-size:clamp(.95rem,1.4vw,1.25rem);line-height:1.5;max-width:62ch;color:rgba(244,238,225,.82)}
   .connect-note b{color:var(--honey);font-style:italic;font-family:var(--serif);font-weight:400}
+
+  /* adoption curve — productivity up / stress down, animated SVG */
+  .chartcard{margin-top:1.1rem;border:1px solid var(--line-dark);border-radius:18px;padding:1.3rem 1.6rem 1rem;
+    background:linear-gradient(160deg,rgba(244,238,225,.05),rgba(244,238,225,.012));box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
+  .chart{width:100%;height:auto;display:block;overflow:visible;max-height:50vh}
+  .cgrid{stroke:rgba(244,238,225,.08);stroke-width:1}
+  .cax{stroke:rgba(244,238,225,.22);stroke-width:1.5}
+  .cline{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1600;stroke-dashoffset:1600;
+    filter:drop-shadow(0 6px 16px rgba(0,0,0,.4))}
+  .cprod{stroke:var(--sage)} .cwell{stroke:var(--honey)}
+  .slide.active .cprod{animation:cdraw 2s cubic-bezier(.16,1,.3,1) .5s forwards}
+  .slide.active .cwell{animation:cdraw 2s cubic-bezier(.16,1,.3,1) .85s forwards}
+  @keyframes cdraw{to{stroke-dashoffset:0}}
+  .carea{opacity:0}
+  .slide.active .carea{animation:cfill 1.4s ease 1.5s forwards}
+  @keyframes cfill{to{opacity:1}}
+  .cdot{opacity:0;transform-box:fill-box;transform-origin:center}
+  .slide.active .cdot{animation:cpop .55s cubic-bezier(.2,1.5,.4,1) forwards}
+  .slide.active .cdot.d1{animation-delay:1.0s}.slide.active .cdot.d2{animation-delay:1.45s}
+  .slide.active .cdot.d3{animation-delay:1.9s}.slide.active .cdot.d4{animation-delay:2.35s}
+  @keyframes cpop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+  .cstageb{fill:var(--cream);font-family:var(--serif);font-size:17px}
+  .cstage{fill:rgba(244,238,225,.6);font-family:var(--sans);font-size:14.5px;font-weight:600}
+  .clegend{display:flex;gap:2rem;margin-top:.5rem;font-size:clamp(.82rem,1.05vw,.98rem);flex-wrap:wrap}
+  .clegend span{display:inline-flex;align-items:center;gap:.55rem;color:rgba(244,238,225,.8)}
+  .clegend i{width:14px;height:14px;border-radius:50%;flex:none}
+  .cl-prod{background:var(--sage)} .cl-well{background:var(--honey)}
+  .chartcap{margin-top:1rem;font-size:clamp(.92rem,1.3vw,1.18rem);color:rgba(244,238,225,.8);max-width:74ch;line-height:1.5}
+  .chartcap b{color:var(--honey)}
   @media (max-width:760px){
     .connectgrid{grid-template-columns:1fr;gap:1rem}
     .mcpspine{flex-direction:row;flex-wrap:wrap;justify-content:center}
@@ -396,7 +430,15 @@
     <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>Where it starts · the shared problem</span>
     <h2 class="r" style="--i:1;margin-top:1.1rem;max-width:18ch">We were where you are now.</h2>
     <div class="split" style="margin-top:2.2rem;height:auto">
-      <p class="lead r" style="--i:2">Skilled people buried in paperwork — reports, claims, case notes, chasing information across a dozen systems. Clinical teams stretched thin, their time going to admin instead of clients. <em>Sound familiar?</em></p>
+      <div class="r" style="--i:2">
+        <ul class="painlist">
+          <li>Skilled people <b>buried in paperwork</b> — reports, claims, case notes</li>
+          <li>Hours lost <b>chasing information</b> across a dozen systems</li>
+          <li>Clinical teams <b>stretched thin</b> — time on admin, not clients</li>
+          <li>Productivity stuck low while <b>the work keeps piling up</b></li>
+        </ul>
+        <p class="lead" style="margin-top:1.3rem"><em>Sound familiar?</em></p>
+      </div>
       <div class="r" style="--i:3">
         <div class="ofrom">
           <span class="was">20%</span><span class="arrow">→</span><span class="hl" style="font-size:clamp(2.4rem,7vw,5.5rem)">60%</span>
@@ -412,12 +454,13 @@
   <section class="slide dark">
     <div class="split">
       <div class="col">
-        <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>What we did · a teammate, not a robot</span>
-        <h2 class="r" style="--i:1;margin-top:1.1rem">An AI teammate.<br>Our people call it <em class="hl">Yogi.</em></h2>
+        <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>What we did · how Yogi came to be</span>
+        <h2 class="r" style="--i:1;margin-top:1.1rem">From a tool<br>to a <em class="hl">teammate.</em></h2>
         <div class="deflist">
-          <div class="def r" style="--i:2"><div class="ic">①</div><div><b>It does the digging.</b><p>Reads records, calls, invoices and emails — and finds what matters in seconds.</p></div></div>
-          <div class="def r" style="--i:3"><div class="ic">②</div><div><b>It does the drafting.</b><p>Writes the report, the response, the summary — ready for a person to check and approve.</p></div></div>
-          <div class="def r" style="--i:4"><div class="ic">③</div><div><b>People stay in charge.</b><p>It proposes; our staff decide. Nothing goes out without a human saying yes.</p></div></div>
+          <div class="def r" style="--i:2"><div class="ic">①</div><div><b>Claude Code, in the business</b><p>We embedded Claude Code into our operations — plugged into our systems through MCP connectors.</p></div></div>
+          <div class="def r" style="--i:3"><div class="ic">②</div><div><b>The connectors unlocked automation</b><p>With the systems wired in, it began automating real jobs — not demos, actual work.</p></div></div>
+          <div class="def r" style="--i:4"><div class="ic">③</div><div><b>Persistent memory fixed the gaps</b><p>Early on it forgot between conversations. We solved that — now it remembers everything about the business, every time.</p></div></div>
+          <div class="def r" style="--i:5"><div class="ic">④</div><div><b>So we gave it a name: Yogi</b><p>Anyone can chat with it. It recalls the whole picture, then goes and does the task — finds the records, correlates the information, drafts the result.</p></div></div>
         </div>
       </div>
       <div class="portrait r" style="--i:2">
@@ -430,12 +473,12 @@
 
   <!-- 4 · THREE REAL JOBS -->
   <section class="slide cream">
-    <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>What we did · three real jobs, not a science project</span>
-    <h2 class="r" style="--i:1;margin-top:1.1rem;max-width:22ch">We didn't “adopt AI”. We picked three jobs that hurt.</h2>
+    <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>What we did · where we started</span>
+    <h2 class="r" style="--i:1;margin-top:1.1rem;max-width:22ch">We started with three jobs that ate our time.</h2>
     <div class="steps">
-      <div class="step r" style="--i:2"><div class="s">Job one</div><h3>Reading the paperwork</h3><p>Thousands of invoices, records and documents read, checked and sorted automatically — work that was done by hand, line by line.</p></div>
-      <div class="step r" style="--i:3"><div class="s">Job two</div><h3>Quality &amp; complaints</h3><p>Reviews pulled together across phone calls, records and emails, and the response drafted — what took a day now takes minutes.</p></div>
-      <div class="step r" style="--i:4"><div class="s">Job three</div><h3>Getting funding right</h3><p>Care claims classified correctly and sent through for payment — faster, and more accurately, than manual processing.</p></div>
+      <div class="step r" style="--i:2"><div class="s">Job one</div><h3>Reading the paperwork</h3><p>Invoices, records and documents — read, checked and sorted automatically, instead of by hand.</p></div>
+      <div class="step r" style="--i:3"><div class="s">Job two</div><h3>Complaints &amp; quality</h3><p>A full review pulled together from calls, records and emails, and the response drafted — a day's work in minutes.</p></div>
+      <div class="step r" style="--i:4"><div class="s">Job three</div><h3>Getting funding right</h3><p>Care claims classified correctly and sent for payment — faster, and more accurate, than by hand.</p></div>
     </div>
   </section>
 
@@ -457,9 +500,51 @@
     </div>
   </section>
 
+  <!-- 6 · ADOPTION CURVE · productivity up, stress down -->
+  <section class="slide dark curveslide">
+    <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>The impact · what it does for your people</span>
+    <h2 class="r" style="--i:1;margin-top:.7rem;max-width:26ch">Output climbs. The pressure comes off.</h2>
+    <div class="chartcard r" style="--i:2">
+      <svg class="chart" viewBox="0 0 1000 470" role="img" aria-label="Productivity rising and staff stress falling over months of AI adoption">
+        <line class="cgrid" x1="90" y1="110" x2="960" y2="110"/>
+        <line class="cgrid" x1="90" y1="180" x2="960" y2="180"/>
+        <line class="cgrid" x1="90" y1="250" x2="960" y2="250"/>
+        <line class="cgrid" x1="90" y1="320" x2="960" y2="320"/>
+        <line class="cax" x1="90" y1="60" x2="90" y2="400"/>
+        <line class="cax" x1="90" y1="400" x2="960" y2="400"/>
+        <defs>
+          <linearGradient id="pareaG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#5da78b" stop-opacity=".34"/>
+            <stop offset="1" stop-color="#5da78b" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path class="carea" d="M90,330 C210,308 250,272 350,250 C470,224 520,196 620,150 C730,118 800,98 900,72 L900,400 L90,400 Z" fill="url(#pareaG)"/>
+        <path class="cline cprod" d="M90,330 C210,308 250,272 350,250 C470,224 520,196 620,150 C730,118 800,98 900,72"/>
+        <path class="cline cwell" d="M90,372 C210,360 250,340 350,322 C470,300 520,272 620,238 C730,210 800,188 900,160"/>
+        <circle class="cdot d1" cx="150" cy="316" r="7" fill="#5da78b"/>
+        <circle class="cdot d2" cx="390" cy="240" r="7" fill="#5da78b"/>
+        <circle class="cdot d3" cx="640" cy="142" r="7" fill="#5da78b"/>
+        <circle class="cdot d4" cx="890" cy="74" r="8.5" fill="#e6a94e"/>
+        <text class="cstageb" x="150" y="432" text-anchor="middle">Weeks 1–2</text>
+        <text class="cstage" x="150" y="455" text-anchor="middle">Basics</text>
+        <text class="cstageb" x="390" y="432" text-anchor="middle">Month 1</text>
+        <text class="cstage" x="390" y="455" text-anchor="middle">Confident</text>
+        <text class="cstageb" x="640" y="432" text-anchor="middle">Months 2–3</text>
+        <text class="cstage" x="640" y="455" text-anchor="middle">Automations &amp; agents</text>
+        <text class="cstageb" x="888" y="432" text-anchor="middle">Ongoing</text>
+        <text class="cstage" x="888" y="455" text-anchor="middle">Building their own tools</text>
+      </svg>
+      <div class="clegend">
+        <span><i class="cl-prod"></i>Productivity &amp; output</span>
+        <span><i class="cl-well"></i>Staff wellbeing &amp; headspace</span>
+      </div>
+    </div>
+    <p class="chartcap r" style="--i:3">Everyone starts in the same place. With AI <b>standard across the team</b> — not just the odd person using ChatGPT — people grow from basics to building their own automations and agents. Output climbs, the team gets their headspace back, and <b>management can see it happening</b>.</p>
+  </section>
+
   <!-- ====================  PART 3 · WHY / APPROACH  ==================== -->
 
-  <!-- 6 · OUR APPROACH -->
+  <!-- 7 · OUR APPROACH -->
   <section class="slide cream">
     <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>Why it worked · our approach</span>
     <h2 class="r" style="--i:1;margin-top:1.1rem;max-width:20ch">Problem first. People first. Small steps.</h2>
@@ -547,37 +632,37 @@
 
   <!-- 13 · AUTOMATIONS · runs itself -->
   <section class="slide dark autoslide">
-    <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>What's possible · automations that run themselves</span>
-    <h2 class="r" style="--i:1;margin-top:.9rem;max-width:24ch">Set it once — it runs while you sleep.</h2>
+    <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>What's possible · automations that work for your clients</span>
+    <h2 class="r" style="--i:1;margin-top:.9rem;max-width:24ch">Set it once — it works while you sleep.</h2>
     <div class="autolist">
-      <div class="aflowhead r" style="--i:2"><span>When this happens…</span><span></span><span>…the AI does the work…</span><span></span><span>…and this lands, ready</span></div>
+      <div class="aflowhead r" style="--i:2"><span>When this happens…</span><span></span><span>…the AI handles it…</span><span></span><span>…and your clients feel it</span></div>
       <div class="aflow r" style="--i:3">
-        <div class="node atrigger"><span class="ic">📅</span><div class="tx"><b>A review falls due</b><span>plan review · trial end · reassessment</span></div></div>
+        <div class="node atrigger"><span class="ic">📅</span><div class="tx"><b>A client's review is due</b><span>plan review · equipment trial ending · reassessment</span></div></div>
         <span class="aarrow">→</span>
-        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Yogi tracks &amp; chases</b><span>watches every date, gathers what's outstanding</span></div></div>
+        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Tracks every client's dates</b><span>and gathers what each one needs</span></div></div>
         <span class="aarrow">→</span>
-        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>Nothing runs late</b><span>paperwork ready before the deadline</span></div></div>
+        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>No client slips through</b><span>flagged and ready, well before the date</span></div></div>
       </div>
       <div class="aflow r" style="--i:4">
-        <div class="node atrigger"><span class="ic">📝</span><div class="tx"><b>Assessment notes saved</b><span>after the OT or speech-path visit</span></div></div>
+        <div class="node atrigger"><span class="ic">📝</span><div class="tx"><b>An OT finishes an assessment</b><span>after the home or clinic visit</span></div></div>
         <span class="aarrow">→</span>
-        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Drafts the report</b><span>AT report + NDIS funding request, written up</span></div></div>
+        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Drafts the report</b><span>AT report + NDIS / funding request, written up</span></div></div>
         <span class="aarrow">→</span>
-        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>Clinician just signs</b><span>checks &amp; approves — hours of typing gone</span></div></div>
+        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>Clients get equipment sooner</b><span>clinician just checks &amp; signs</span></div></div>
       </div>
       <div class="aflow r" style="--i:5">
-        <div class="node atrigger"><span class="ic">📨</span><div class="tx"><b>A referral arrives</b><span>by email, form or phone intake</span></div></div>
+        <div class="node atrigger"><span class="ic">📨</span><div class="tx"><b>A new referral arrives</b><span>by email, form or phone</span></div></div>
         <span class="aarrow">→</span>
-        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Reads &amp; triages it</b><span>urgency-flagged, booked, pre-visit brief built</span></div></div>
+        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Reads &amp; prioritises it</b><span>urgency-flagged, booked, pre-visit brief built</span></div></div>
         <span class="aarrow">→</span>
-        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>Clients arrive ready</b><span>clinician walks in already briefed</span></div></div>
+        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>The greatest need, seen first</b><span>clinician walks in already briefed</span></div></div>
       </div>
       <div class="aflow r" style="--i:6">
-        <div class="node atrigger"><span class="ic">📊</span><div class="tx"><b>Month-end rolls around</b><span>funder &amp; CHSP reporting time</span></div></div>
+        <div class="node atrigger"><span class="ic">📊</span><div class="tx"><b>Funders need outcomes</b><span>NDIS · CHSP · grant reporting</span></div></div>
         <span class="aarrow">→</span>
-        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Compiles the numbers</b><span>service outcomes pulled into acquittal reports</span></div></div>
+        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Compiles each client's outcomes</b><span>pulled straight into the report</span></div></div>
         <span class="aarrow">→</span>
-        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>Compliance, no scramble</b><span>reports ready to submit</span></div></div>
+        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>More hours back with clients</b><span>less time on paperwork, more on people</span></div></div>
       </div>
     </div>
   </section>
@@ -645,7 +730,7 @@
 <!-- chrome -->
 <div class="chrome">
   <span class="c-left" id="cLeft">Trilogy Care × LifeTec</span>
-  <span class="c-right counter" id="counter"><b>01</b> / 15</span>
+  <span class="c-right counter" id="counter"><b>01</b> / 16</span>
 </div>
 <div class="hint" id="hint">Press → to begin</div>
 <div class="navzone left" id="navLeft"></div>
@@ -847,7 +932,7 @@
 
   const V=(x,y,z,fov)=>({pos:new THREE.Vector3(x,y,z),fov:fov||60});
   const WP=[ V(0,8,150,62), V(60,18,95,60), V(-42,10,72,58), V(28,-14,112,62),
-    V(-55,6,60,55), V(18,28,132,64), V(0,0,46,52), V(-30,-10,82,60),
+    V(-55,6,60,55), V(0,2,128,58), V(18,28,132,64), V(0,0,46,52), V(-30,-10,82,60),
     V(52,2,72,58), V(-18,24,122,64), V(34,-18,86,60), V(-46,-6,98,60), V(0,4,118,58), V(0,10,132,62), V(0,12,162,64) ];
   let camTarget=WP[0].pos.clone(), camCur=WP[0].pos.clone(), camFov=WP[0].fov;
   let morphT=0, colorT=0, bloomT=0.9, streakT=0;
@@ -857,8 +942,8 @@
   window.universeGoTo=function(idx,dark){
     const wp=WP[Math.max(0,Math.min(WP.length-1,idx))];
     camTarget.copy(wp.pos); camFov=wp.fov;
-    if(idx===6){ morphT=1; colorT=1; bloomT=1.5; streakT=0; }
-    else if(idx===8){ morphT=0; colorT=0; bloomT=1.0; streakT=1; setTimeout(()=>{streakT=0;},850); }
+    if(idx===7){ morphT=1; colorT=1; bloomT=1.5; streakT=0; }
+    else if(idx===9){ morphT=0; colorT=0; bloomT=1.0; streakT=1; setTimeout(()=>{streakT=0;},850); }
     else { morphT=0; colorT=0; bloomT=dark?0.95:0.4; streakT=0; }
     if(STILL){ uniforms.uMorph.value=morphT; uniforms.uColorMix.value=colorT; bloom.strength=bloomT; camCur.copy(camTarget); }
   };
