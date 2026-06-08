@@ -184,6 +184,63 @@
   .lt p{font-size:clamp(.84rem,1.08vw,1rem);line-height:1.42;color:rgba(244,238,225,.7)}
   .lt .gain{display:block;margin-top:.65rem;color:var(--honey);font-style:italic;font-family:var(--serif);font-size:clamp(.95rem,1.2vw,1.1rem)}
 
+  /* automations — visual flow strips (trigger → AI → result), board-friendly */
+  .autolist{display:flex;flex-direction:column;gap:clamp(.6rem,1.4vh,1.05rem);margin-top:1.4rem}
+  .aflowhead{display:grid;grid-template-columns:1fr auto 1.2fr auto 1fr;gap:1rem;padding:0 1.3rem .1rem;
+    font-size:clamp(.62rem,.78vw,.72rem);letter-spacing:.16em;text-transform:uppercase;color:rgba(244,238,225,.46);font-weight:600}
+  .aflowhead span:nth-child(even){visibility:hidden}
+  .aflow{display:grid;grid-template-columns:1fr auto 1.2fr auto 1fr;align-items:center;gap:1rem;
+    border:1px solid var(--line-dark);border-radius:14px;padding:.8rem 1.3rem;
+    background:linear-gradient(160deg,rgba(244,238,225,.052),rgba(244,238,225,.012));
+    box-shadow:0 20px 44px -28px rgba(0,0,0,.6)}
+  .node{display:flex;align-items:center;gap:.8rem;min-width:0}
+  .node .ic{flex:none;width:clamp(2.1rem,3vw,2.6rem);height:clamp(2.1rem,3vw,2.6rem);border-radius:12px;
+    display:grid;place-items:center;font-size:clamp(1.1rem,1.6vw,1.4rem);
+    background:rgba(244,238,225,.06);border:1px solid var(--line-dark)}
+  .node .tx{min-width:0}
+  .node b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(.96rem,1.4vw,1.28rem);color:var(--cream);line-height:1.08;letter-spacing:-.01em}
+  .node .tx span{display:block;font-size:clamp(.72rem,.95vw,.92rem);color:rgba(244,238,225,.62);margin-top:.18rem;line-height:1.25}
+  .atrigger .ic{color:var(--sage);background:rgba(93,167,139,.14);border-color:rgba(93,167,139,.32)}
+  .aai .ic{color:var(--honey);background:rgba(230,169,78,.17);border-color:rgba(230,169,78,.36)}
+  .aout .ic{color:var(--sage);background:rgba(93,167,139,.1)}
+  .aout b{color:var(--honey)}
+  .aarrow{font-size:1.35rem;color:var(--honey);justify-self:center;animation:flowpulse 2.2s ease-in-out infinite}
+  .aflow:nth-child(3) .aarrow{animation-delay:.18s}.aflow:nth-child(4) .aarrow{animation-delay:.36s}.aflow:nth-child(5) .aarrow{animation-delay:.54s}
+  @keyframes flowpulse{0%,100%{opacity:.32;transform:translateX(-3px)}50%{opacity:.95;transform:translateX(3px)}}
+  @media (max-width:760px){
+    .aflow,.aflowhead{grid-template-columns:1fr;gap:.5rem}
+    .aflowhead{display:none}
+    .aarrow{transform:rotate(90deg);justify-self:start;margin-left:1.1rem}
+  }
+
+  /* how it connects — AI brain → MCP (universal plug) → your systems */
+  .connectgrid{display:grid;grid-template-columns:.92fr auto 1.28fr;gap:clamp(1.1rem,3.4vw,3rem);align-items:center;margin-top:1.7rem}
+  .brain{position:relative;border:1px solid rgba(230,169,78,.34);border-radius:18px;padding:1.6rem 1.4rem;text-align:center;
+    background:radial-gradient(120% 120% at 50% 0%,rgba(230,169,78,.16),rgba(244,238,225,.02));box-shadow:0 30px 70px -30px rgba(0,0,0,.7),0 0 60px rgba(230,169,78,.12)}
+  .brain .bic{font-size:clamp(2.4rem,5vw,3.4rem);line-height:1}
+  .brain b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(1.3rem,2.2vw,1.8rem);color:var(--honey);margin-top:.4rem;letter-spacing:-.01em}
+  .brain small{display:block;font-size:clamp(.78rem,1vw,.95rem);color:rgba(244,238,225,.66);margin-top:.45rem;line-height:1.35}
+  /* MCP spine — the universal plug */
+  .mcpspine{display:flex;flex-direction:column;align-items:center;gap:.6rem;position:relative;min-width:clamp(64px,8vw,108px)}
+  .mcpspine .mlabel{font-family:var(--serif);font-weight:500;font-size:clamp(1.1rem,1.7vw,1.5rem);color:var(--honey);letter-spacing:.02em}
+  .mcpspine .msub{font-size:clamp(.66rem,.8vw,.74rem);letter-spacing:.1em;text-transform:uppercase;color:rgba(244,238,225,.5);text-align:center;max-width:14ch;line-height:1.4}
+  .mcpspine .flow{display:flex;gap:.5rem;align-items:center}
+  .mcpspine .flow i{width:8px;height:8px;border-radius:50%;background:var(--honey);opacity:.3;animation:mflow 1.6s ease-in-out infinite}
+  .mcpspine .flow i:nth-child(2){animation-delay:.25s}.mcpspine .flow i:nth-child(3){animation-delay:.5s}.mcpspine .flow i:nth-child(4){animation-delay:.75s}
+  @keyframes mflow{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
+  .syschips{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+  .chip{display:flex;align-items:center;gap:.7rem;border:1px solid var(--line-dark);border-radius:12px;padding:.7rem .9rem;
+    background:linear-gradient(160deg,rgba(244,238,225,.05),rgba(244,238,225,.012))}
+  .chip .cic{flex:none;width:2rem;height:2rem;border-radius:9px;display:grid;place-items:center;font-size:1.05rem;background:rgba(93,167,139,.13);border:1px solid rgba(93,167,139,.26)}
+  .chip span{font-size:clamp(.82rem,1.05vw,1rem);color:var(--cream);line-height:1.15}
+  .connect-note{margin-top:1.6rem;font-size:clamp(.95rem,1.4vw,1.25rem);line-height:1.5;max-width:62ch;color:rgba(244,238,225,.82)}
+  .connect-note b{color:var(--honey);font-style:italic;font-family:var(--serif);font-weight:400}
+  @media (max-width:760px){
+    .connectgrid{grid-template-columns:1fr;gap:1rem}
+    .mcpspine{flex-direction:row;flex-wrap:wrap;justify-content:center}
+    .mcpspine .flow i{animation:none}
+  }
+
   /* big statement */
   .statement h2{font-size:clamp(2.4rem,6vw,5.6rem);max-width:19ch}
   .statement .lead{margin-top:1.8rem;max-width:44ch}
@@ -488,7 +545,71 @@
     </div>
   </section>
 
-  <!-- 13 · HOW YOU'D START -->
+  <!-- 13 · AUTOMATIONS · runs itself -->
+  <section class="slide dark autoslide">
+    <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>What's possible · automations that run themselves</span>
+    <h2 class="r" style="--i:1;margin-top:.9rem;max-width:24ch">Set it once — it runs while you sleep.</h2>
+    <div class="autolist">
+      <div class="aflowhead r" style="--i:2"><span>When this happens…</span><span></span><span>…the AI does the work…</span><span></span><span>…and this lands, ready</span></div>
+      <div class="aflow r" style="--i:3">
+        <div class="node atrigger"><span class="ic">📅</span><div class="tx"><b>A review falls due</b><span>plan review · trial end · reassessment</span></div></div>
+        <span class="aarrow">→</span>
+        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Yogi tracks &amp; chases</b><span>watches every date, gathers what's outstanding</span></div></div>
+        <span class="aarrow">→</span>
+        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>Nothing runs late</b><span>paperwork ready before the deadline</span></div></div>
+      </div>
+      <div class="aflow r" style="--i:4">
+        <div class="node atrigger"><span class="ic">📝</span><div class="tx"><b>Assessment notes saved</b><span>after the OT or speech-path visit</span></div></div>
+        <span class="aarrow">→</span>
+        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Drafts the report</b><span>AT report + NDIS funding request, written up</span></div></div>
+        <span class="aarrow">→</span>
+        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>Clinician just signs</b><span>checks &amp; approves — hours of typing gone</span></div></div>
+      </div>
+      <div class="aflow r" style="--i:5">
+        <div class="node atrigger"><span class="ic">📨</span><div class="tx"><b>A referral arrives</b><span>by email, form or phone intake</span></div></div>
+        <span class="aarrow">→</span>
+        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Reads &amp; triages it</b><span>urgency-flagged, booked, pre-visit brief built</span></div></div>
+        <span class="aarrow">→</span>
+        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>Clients arrive ready</b><span>clinician walks in already briefed</span></div></div>
+      </div>
+      <div class="aflow r" style="--i:6">
+        <div class="node atrigger"><span class="ic">📊</span><div class="tx"><b>Month-end rolls around</b><span>funder &amp; CHSP reporting time</span></div></div>
+        <span class="aarrow">→</span>
+        <div class="node aai"><span class="ic">🐻</span><div class="tx"><b>Compiles the numbers</b><span>service outcomes pulled into acquittal reports</span></div></div>
+        <span class="aarrow">→</span>
+        <div class="node aout"><span class="ic">✓</span><div class="tx"><b>Compliance, no scramble</b><span>reports ready to submit</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · HOW IT CONNECTS · Claude Code + MCP -->
+  <section class="slide dark connectslide">
+    <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>Under the hood · how it all connects, simply</span>
+    <h2 class="r" style="--i:1;margin-top:.9rem;max-width:24ch">One brain. One universal plug. All your systems.</h2>
+    <div class="connectgrid">
+      <div class="brain r" style="--i:2">
+        <div class="bic">🐻</div>
+        <b>Claude Code</b>
+        <small>The AI brain. It reads, reasons and writes — the engine behind Yogi.</small>
+      </div>
+      <div class="mcpspine r" style="--i:3">
+        <span class="mlabel">MCP</span>
+        <div class="flow"><i></i><i></i><i></i><i></i></div>
+        <span class="msub">the universal plug</span>
+      </div>
+      <div class="syschips r" style="--i:4">
+        <div class="chip"><span class="cic">🗂️</span><span>Client records</span></div>
+        <div class="chip"><span class="cic">💰</span><span>Funding portals · NDIS · MAC</span></div>
+        <div class="chip"><span class="cic">✉️</span><span>Email &amp; documents</span></div>
+        <div class="chip"><span class="cic">📞</span><span>Phone calls &amp; notes</span></div>
+        <div class="chip"><span class="cic">📆</span><span>Calendar &amp; bookings</span></div>
+        <div class="chip"><span class="cic">📋</span><span>Assessments &amp; reports</span></div>
+      </div>
+    </div>
+    <p class="connect-note r" style="--i:5">Think of <b>MCP</b> as USB-C for software: plug the AI in once, and it can safely reach every system it needs — instead of a custom wire to each one. The AI proposes; <b>a person always approves</b> before anything happens.</p>
+  </section>
+
+  <!-- 15 · HOW YOU'D START -->
   <section class="slide cream">
     <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>How you'd start · and why you're well placed</span>
     <h2 class="r" style="--i:1;margin-top:1.1rem;max-width:20ch">At around twenty people, you can move fast.</h2>
@@ -524,7 +645,7 @@
 <!-- chrome -->
 <div class="chrome">
   <span class="c-left" id="cLeft">Trilogy Care × LifeTec</span>
-  <span class="c-right counter" id="counter"><b>01</b> / 13</span>
+  <span class="c-right counter" id="counter"><b>01</b> / 15</span>
 </div>
 <div class="hint" id="hint">Press → to begin</div>
 <div class="navzone left" id="navLeft"></div>
@@ -727,7 +848,7 @@
   const V=(x,y,z,fov)=>({pos:new THREE.Vector3(x,y,z),fov:fov||60});
   const WP=[ V(0,8,150,62), V(60,18,95,60), V(-42,10,72,58), V(28,-14,112,62),
     V(-55,6,60,55), V(18,28,132,64), V(0,0,46,52), V(-30,-10,82,60),
-    V(52,2,72,58), V(-18,24,122,64), V(34,-18,86,60), V(0,10,132,62), V(0,12,162,64) ];
+    V(52,2,72,58), V(-18,24,122,64), V(34,-18,86,60), V(-46,-6,98,60), V(0,4,118,58), V(0,10,132,62), V(0,12,162,64) ];
   let camTarget=WP[0].pos.clone(), camCur=WP[0].pos.clone(), camFov=WP[0].fov;
   let morphT=0, colorT=0, bloomT=0.9, streakT=0;
   let px=0,py=0,tpx=0,tpy=0;
