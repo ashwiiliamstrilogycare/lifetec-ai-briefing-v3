@@ -479,6 +479,17 @@
   .curveslide .chartcard{margin-top:var(--s3)!important;padding:1rem 1.5rem .8rem}
   .curveslide .chart{max-height:40vh}
   .curveslide .chartcap{margin-top:var(--s2)!important;max-width:64ch;font-size:clamp(.88rem,1.15vw,1.08rem)}
+
+  /* the maths slide — board ROI tiles */
+  .mathgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:var(--s4)}
+  .mcard{border:1px solid var(--panel-line);border-radius:16px;padding:1.5rem;background:var(--panel)}
+  .mcard .mbig{font-family:var(--mono);font-weight:600;font-size:clamp(2rem,4.4vw,3.3rem);color:var(--honey);letter-spacing:-.02em;line-height:1}
+  .mcard .mlab{margin-top:.7rem;font-size:clamp(.9rem,1.2vw,1.06rem);color:rgba(244,238,225,.84);line-height:1.42}
+  .mcard .mlab b{color:var(--cream);font-weight:600}
+  .mcard .mderiv{margin-top:.8rem;padding-top:.7rem;border-top:1px solid rgba(244,238,225,.1);font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;color:rgba(244,238,225,.5)}
+  .mathfoot{margin-top:var(--s3)!important;font-family:var(--serif);font-style:italic;color:var(--honey);font-size:clamp(1.05rem,1.7vw,1.45rem)}
+  .mathtag{display:block;margin-top:.5rem;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,238,225,.4)}
+  @media (max-width:760px){.mathgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -638,7 +649,7 @@
   <section class="slide dark center">
     <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>The impact · the bottom line</span>
     <div class="bigmoney r" style="--i:1;margin-top:1rem"><span data-prefix="$" data-count="2.8" data-dec="1" data-suffix="M">$2.8M</span></div>
-    <p class="caption r" style="--i:2;max-width:30ch">in care funding claimed correctly <strong>every day</strong> — faster and more accurately than manual processing, with AI doing the classification.</p>
+    <p class="caption r" style="--i:2;max-width:32ch">in care funding put through correctly <strong>every day</strong> — AI classifies every line, so far fewer claims are missed, underpaid or knocked back than by hand.</p>
     <div class="moneyrow r" style="--i:3">
       <div class="m"><div class="n" data-prefix="$" data-count="4.5" data-dec="1" data-suffix="M">$4.5M</div><div class="l">best single day so far</div></div>
       <div class="m"><div class="n" data-count="95" data-suffix="–97%">95–97%</div><div class="l">classification accuracy</div></div>
@@ -668,7 +679,20 @@
 
   <!-- ====================  PART 5 · WHAT'S POSSIBLE FOR LIFETEC  ==================== -->
 
-  <!-- 11 · IMAGINE -->
+  <!-- 11 · THE MATHS · board ROI -->
+  <section class="slide dark mathslide">
+    <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>The impact · the maths, simply</span>
+    <h2 class="r" style="--i:1;margin-top:.9rem;max-width:24ch">What that looks like for a team your size.</h2>
+    <div class="mathgrid">
+      <div class="mcard r" style="--i:2"><div class="mbig">~37 hrs</div><div class="mlab">handed back <b>every week</b> — about <b>one full admin role</b>, from the team you already have.</div><div class="mderiv">20 MIN → 5 MIN · ~30 TASKS/DAY · 5 DAYS</div></div>
+      <div class="mcard r" style="--i:3"><div class="mbig">Weeks</div><div class="mlab">to a <b>working pilot</b> — not years, and not a big build.</div><div class="mderiv">START WITH ONE JOB</div></div>
+      <div class="mcard r" style="--i:4"><div class="mbig">$0</div><div class="mlab"><b>extra headcount</b> — the capacity comes from the people you already have.</div><div class="mderiv">AUGMENT, NOT REPLACE</div></div>
+    </div>
+    <p class="mathfoot r" style="--i:5">This is your ~20% → 60% gap — closing.</p>
+    <span class="mathtag r" style="--i:6">Illustrative · grounded in Trilogy Care's measured time-savings</span>
+  </section>
+
+  <!-- 12 · IMAGINE -->
   <section class="slide cream statement">
     <span class="kicker on-cream r" style="--i:0"><span class="tick"></span>What's possible for LifeTec</span>
     <h2 class="r" style="--i:1;margin-top:1.1rem">Imagine your clinicians spending their time on <em class="hl">people</em> — not paperwork.</h2>
@@ -807,7 +831,7 @@
 <!-- chrome -->
 <div class="chrome">
   <span class="c-left" id="cLeft">Trilogy Care × LifeTec</span>
-  <span class="c-right counter" id="counter"><b>01</b> / 16</span>
+  <span class="c-right counter" id="counter"><b>01</b> / 17</span>
 </div>
 <div class="hint" id="hint">Press → to begin</div>
 <div class="navzone left" id="navLeft"></div>
@@ -1010,7 +1034,7 @@
   const V=(x,y,z,fov)=>({pos:new THREE.Vector3(x,y,z),fov:fov||60});
   const WP=[ V(0,8,150,62), V(60,18,95,60), V(-42,10,72,58), V(28,-14,112,62),
     V(-55,6,60,55), V(0,2,128,58), V(18,28,132,64), V(0,0,46,52), V(-30,-10,82,60),
-    V(52,2,72,58), V(-18,24,122,64), V(34,-18,86,60), V(-46,-6,98,60), V(0,4,118,58), V(0,10,132,62), V(0,12,162,64) ];
+    V(52,2,72,58), V(0,6,124,58), V(-18,24,122,64), V(34,-18,86,60), V(-46,-6,98,60), V(0,4,118,58), V(0,10,132,62), V(0,12,162,64) ];
   let camTarget=WP[0].pos.clone(), camCur=WP[0].pos.clone(), camFov=WP[0].fov;
   let morphT=0, colorT=0, bloomT=0.9, streakT=0;
   let px=0,py=0,tpx=0,tpy=0;
