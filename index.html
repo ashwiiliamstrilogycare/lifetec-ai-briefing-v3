@@ -7,7 +7,7 @@
 <title>The Trilogy Care AI Journey — LifeTec Board</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..600&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root{
     --ink:#14201c;
@@ -402,6 +402,83 @@
   .slide{transform:translateY(14px)!important; transition:opacity .8s ease, transform .9s cubic-bezier(.16,1,.3,1), visibility .8s!important}
   .slide.active{transform:none!important}
   @media (prefers-reduced-motion:reduce){ #universe{opacity:.55} }
+
+  /* =====================================================================
+     v3.1 REDESIGN LAYER — "control room for outcomes"
+     tech surface + contrast + spacing discipline (board design review)
+     ===================================================================== */
+  :root{
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --s1:.5rem; --s2:1rem; --s3:1.6rem; --s4:2.4rem; --s5:3.6rem;
+    --panel:rgba(9,20,16,.84); --panel-line:rgba(230,169,78,.22);
+  }
+  /* heavier headings read crisper on a projector */
+  h1{font-weight:400} h2{font-weight:450}
+
+  /* --- data speaks machine: route all secondary numbers through mono+tabular --- */
+  .stat .n,.cf .n,.moneyrow .m .n,.ofrom .was,.num-sub,.counter,
+  .moneyrow .m .l,.stat .l,.cf .l{font-feature-settings:"tnum" 1;font-variant-numeric:tabular-nums}
+  .moneyrow .m .n,.cf .n,.stat .n{font-family:var(--mono);font-weight:500;letter-spacing:-.01em}
+  .ofrom .was{font-family:var(--mono);font-weight:400}
+  .cstage{font-family:var(--mono)!important;letter-spacing:.02em}
+  /* hero numbers ($2.8M, 20min→5min) stay Fraunces — serif-hero vs mono-data contrast */
+
+  /* --- darker, engineered bed on dark slides so content always wins over the galaxy --- */
+  .slide.dark{
+    background:
+      linear-gradient(90deg, rgba(5,12,10,.80) 0%, rgba(5,12,10,.34) 46%, rgba(5,12,10,.18) 100%),
+      radial-gradient(130% 130% at 12% 0%, rgba(16,34,28,.62) 0%, rgba(8,19,16,.74) 46%, rgba(4,11,9,.86) 100%) !important;
+  }
+  /* blueprint grid as ONE static cheap layer on the stage (not re-blended per slide) */
+  .stage::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:repeating-linear-gradient(0deg,rgba(230,169,78,.05) 0 1px,transparent 1px 88px),
+      repeating-linear-gradient(90deg,rgba(230,169,78,.05) 0 1px,transparent 1px 88px);
+    -webkit-mask-image:radial-gradient(120% 120% at 50% 40%,#000 55%,transparent 100%);
+    mask-image:radial-gradient(120% 120% at 50% 40%,#000 55%,transparent 100%);}
+  .slide.dark .lead,.slide.dark p,.slide.dark .caption,.def p,.lt p,.chartcap,.connect-note,.node .tx span{
+    text-shadow:0 2px 10px rgba(0,0,0,.55)}
+  .slide.dark .lead,.slide.dark .caption{color:rgba(244,238,225,.86)}
+
+  /* --- frosted near-opaque panels: kills the "ghost cards washed out by galaxy" look --- */
+  .lt,.aflow,.chip,.brain,.chartcard,.casefacts,.cf{
+    background:var(--panel)!important;
+    border-color:rgba(244,238,225,.14)!important;
+  }
+  .cf{background:linear-gradient(160deg,rgba(12,26,21,.9),rgba(8,18,15,.86))!important}
+  .lt::before{opacity:.9}
+
+  /* --- terminal-style status chrome --- */
+  .chrome{font-family:var(--mono);font-weight:500;letter-spacing:.18em;font-size:.7rem}
+  .chrome .counter b{font-family:var(--mono);font-weight:600}
+  .progress{height:2px}
+  /* slimmer letterbox — less cinema bar, more instrument */
+  .cine .bar{height:2.6vh}
+  .cine .vig{box-shadow:inset 0 0 14vw rgba(0,0,0,.36), inset 0 0 4vw rgba(0,0,0,.18)}
+
+  /* --- spacing discipline: one rhythm, every content block starts on the same anchor --- */
+  .slide > h2{margin-top:var(--s2)!important}
+  .autolist,.lt-grid,.steps,.principles,.deflist,.statduo,.moneyrow,.connectgrid,.chartcard{margin-top:var(--s4)!important}
+  .slide .caption,.chartcap,.connect-note,.introline{margin-top:var(--s3)!important}
+
+  /* --- automations: calm the pulse (one row breathes at a time, not eight) --- */
+  .aflow .aarrow{animation:none;opacity:.5}
+  .autolist .aflow:nth-of-type(2) .aarrow{animation:flowpulse 2.4s ease-in-out infinite;opacity:1}
+
+  /* --- mono section/step indices --- */
+  .step .s,.def .ic{font-family:var(--mono)}
+  .def .ic{font-style:normal;font-weight:600;font-size:.95rem;letter-spacing:.02em}
+
+  /* --- MCP spine reads like a data bus --- */
+  .mcpspine .mlabel{font-family:var(--mono);letter-spacing:.12em}
+  .mcpspine .msub{font-family:var(--mono)}
+
+  @media (prefers-reduced-motion:reduce){ .aflow .aarrow,.autolist .aflow:nth-of-type(2) .aarrow{animation:none} }
+
+  /* slide 6 (adoption curve) — keep it on one screen: tame headline, shrink chart, one-line cap */
+  .curveslide h2{font-size:clamp(1.9rem,4vw,3.3rem);max-width:26ch}
+  .curveslide .chartcard{margin-top:var(--s3)!important;padding:1rem 1.5rem .8rem}
+  .curveslide .chart{max-height:40vh}
+  .curveslide .chartcap{margin-top:var(--s2)!important;max-width:64ch;font-size:clamp(.88rem,1.15vw,1.08rem)}
 </style>
 </head>
 <body>
@@ -457,10 +534,10 @@
         <span class="kicker on-dark r" style="--i:0"><span class="tick"></span>What we did · how Yogi came to be</span>
         <h2 class="r" style="--i:1;margin-top:1.1rem">From a tool<br>to a <em class="hl">teammate.</em></h2>
         <div class="deflist">
-          <div class="def r" style="--i:2"><div class="ic">①</div><div><b>Claude Code, in the business</b><p>We embedded Claude Code into our operations — plugged into our systems through MCP connectors.</p></div></div>
-          <div class="def r" style="--i:3"><div class="ic">②</div><div><b>The connectors unlocked automation</b><p>With the systems wired in, it began automating real jobs — not demos, actual work.</p></div></div>
-          <div class="def r" style="--i:4"><div class="ic">③</div><div><b>Persistent memory fixed the gaps</b><p>Early on it forgot between conversations. We solved that — now it remembers everything about the business, every time.</p></div></div>
-          <div class="def r" style="--i:5"><div class="ic">④</div><div><b>So we gave it a name: Yogi</b><p>Anyone can chat with it. It recalls the whole picture, then goes and does the task — finds the records, correlates the information, drafts the result.</p></div></div>
+          <div class="def r" style="--i:2"><div class="ic">01</div><div><b>Claude Code, in the business</b><p>We embedded Claude Code into our operations — plugged into our systems through MCP connectors.</p></div></div>
+          <div class="def r" style="--i:3"><div class="ic">02</div><div><b>The connectors unlocked automation</b><p>With the systems wired in, it began automating real jobs — not demos, actual work.</p></div></div>
+          <div class="def r" style="--i:4"><div class="ic">03</div><div><b>Persistent memory fixed the gaps</b><p>Early on it forgot between conversations. We solved that — now it remembers everything about the business, every time.</p></div></div>
+          <div class="def r" style="--i:5"><div class="ic">04</div><div><b>So we gave it a name: Yogi</b><p>Anyone can chat with it. It recalls the whole picture, then goes and does the task — finds the records, correlates the information, drafts the result.</p></div></div>
         </div>
       </div>
       <div class="portrait r" style="--i:2">
@@ -539,7 +616,7 @@
         <span><i class="cl-well"></i>Staff wellbeing &amp; headspace</span>
       </div>
     </div>
-    <p class="chartcap r" style="--i:3">Everyone starts in the same place. With AI <b>standard across the team</b> — not just the odd person using ChatGPT — people grow from basics to building their own automations and agents. Output climbs, the team gets their headspace back, and <b>management can see it happening</b>.</p>
+    <p class="chartcap r" style="--i:3">Make AI <b>standard across the team</b> — not the odd ChatGPT user — and people grow from basics to building their own automations. <b>Output up, pressure down, and management can see it.</b></p>
   </section>
 
   <!-- ====================  PART 3 · WHY / APPROACH  ==================== -->
@@ -720,7 +797,7 @@
       <div class="col r" style="--i:2;justify-content:center">
         <div class="wordmark" style="font-size:1.1rem">Trilogy Care <span class="x">×</span> LifeTec</div>
         <p class="lead" style="margin-top:1rem;max-width:26ch">Two health organisations. One future — where technology gives people back their time.</p>
-        <p class="door">When LifeTec's ready to explore it, we're right here.</p>
+        <p class="door">One painful job. One 90-minute session.<br>We build a working pilot <em>with</em> you — on us.</p>
       </div>
     </div>
   </section>
@@ -944,7 +1021,7 @@
     camTarget.copy(wp.pos); camFov=wp.fov;
     if(idx===7){ morphT=1; colorT=1; bloomT=1.5; streakT=0; }
     else if(idx===9){ morphT=0; colorT=0; bloomT=1.0; streakT=1; setTimeout(()=>{streakT=0;},850); }
-    else { morphT=0; colorT=0; bloomT=dark?0.95:0.4; streakT=0; }
+    else { morphT=0; colorT=0; bloomT=dark?0.62:0.3; streakT=0; }
     if(STILL){ uniforms.uMorph.value=morphT; uniforms.uColorMix.value=colorT; bloom.strength=bloomT; camCur.copy(camTarget); }
   };
 
